@@ -36,6 +36,7 @@ app.get('/', (req, res) => {
 //show all campgrounds we have
 app.get('/campgrounds', (req, res) => {
   //get all campgrounds from db
+    //code from course
 /*   Campground.find({}, (err, campgrounds) => {
     if (err) {
       console.log(err);
@@ -43,6 +44,7 @@ app.get('/campgrounds', (req, res) => {
       res.render('campgrounds', { campgrounds: campgrounds });
     }
   }); */
+  //using promises instead
   Campground.find()
     .then(campgrounds => res.render('campgrounds', { campgrounds: campgrounds }))
     .catch(err => console.log(err))
@@ -57,13 +59,18 @@ app.post('/campgrounds', (req, res) => {
   let image = req.body.image;
   let newCampground = { name, image}; //use ES6 here
   //Create a new campground and save to DB
-  Campground.create(newCampground, (err, newlyCreated) => {
+      //code from course
+/*   Campground.create(newCampground, (err, newlyCreated) => {
     if (err) {
       console.log(err);
     } else {
       res.redirect('/campgrounds')
     }
-  })
+  }) */
+    //using promises instead
+    Campground.create(newCampground)
+      .then(() => res.redirect('/campgrounds'))
+      .catch(err => console.log(err));
 });
 
 //this route shows the form that will send the data to the above POST route
